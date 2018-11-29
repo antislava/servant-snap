@@ -21,6 +21,6 @@ $(DIR)/default-example.nix :
 $(NIX)/%.git.json : $(NIX)/%.git.sh
 	sh $< > $@
 
-# Example: make -B ./pkgs/ servant.nix
+# Example: make -B ./pkgs/servant.nix
 $(NIX_DEPS)/%.nix : $(NIX_DEPS)/%.sh
 	sh $< > $@
