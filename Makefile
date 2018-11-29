@@ -1,6 +1,6 @@
 DIR      = .
 NIX_DIR  = $(DIR)/nix
-NIX_DEPS = $(DIR)/nix-deps
+NIX_DEPS = $(DIR)/pkgs
 
 DIRS = $(NIX_DIR) $(NIX_DEPS)
 

@@ -9,14 +9,14 @@ let
     hspec-snap  =   jb super.hspec-snap;
     lens        = nc   super.lens;
     heist       = nc   super.heist;
-    snap        = super.callPackage ./nix-deps/snap.nix { };
+    snap        = super.callPackage ./pkgs/snap.nix { };
   };
   overridesGhc86 = self: super: {
     map-syntax  = ncjb super.map-syntax;
     # servant     = ncjb super.servant;
-    servant = super.callPackage ./nix-deps/servant.nix { };
-    servant-client-core = super.callPackage ./nix-deps/servant-client-core.nix { };
-    snap        = super.callPackage ./nix-deps/snap.nix { };
+    servant = super.callPackage ./pkgs/servant.nix { };
+    servant-client-core = super.callPackage ./pkgs/servant-client-core.nix { };
+    snap        = super.callPackage ./pkgs/snap.nix { };
   };
 in
   composeExtensionsList [
