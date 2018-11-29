@@ -52,7 +52,7 @@ type TestApi m f =
   -- DELETE /greet/:greetid
   :<|> "greet" :> Capture "greetid" Text :> Delete '[JSON] ()
 
-  -- :<|> "stream" :> StreamGet NetstringFraming JSON (f Greet)
+  :<|> "stream" :> StreamGet NetstringFraming JSON (f Greet)
 
   :<|> "files" :> Raw
   :<|> "doraw" :> Raw
@@ -87,7 +87,7 @@ server = helloH
     :<|> helloH'
     :<|> postGreetH
     :<|> deleteGreetH
-    -- :<|> doStream
+    :<|> doStream
     :<|> serveDirectory "static"
     :<|> doRaw
 
@@ -107,10 +107,10 @@ server = helloH
 
         deleteGreetH _ = return ()
 
-        -- doStream = return $ StreamGenerator $ \sendFirst sendRest -> do
-        --   sendFirst (Greet "hi")
-        --   sendRest  (Greet "tao")
-        --   sendRest  (Greet "Howareya")
+        doStream = return $ StreamGenerator $ \sendFirst sendRest -> do
+          sendFirst (Greet "hi")
+          sendRest  (Greet "tao")
+          sendRest  (Greet "Howareya")
 
         doRaw = with auth $ do
           u <- currentUser

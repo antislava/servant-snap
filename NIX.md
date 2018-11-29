@@ -12,9 +12,7 @@ make default-example.nix
 Building core library
 
 ```
-nix-shell ./release.nix --argstr compiler ghc844 -A servant-snap-no-check.env
-# or
-nix-shell ./release.nix --argstr compiler ghc862 -A servant-snap-example.env
+nix-shell ./release.nix --argstr compiler ghc862 -A servant-snap-no-check.env
 
 cabal new-build
 ```
