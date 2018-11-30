@@ -1,4 +1,5 @@
-{ compiler ? "default" }:
+{ compiler ? "default" , haskell-overrides ? ./haskell-overrides.nix }:
+# USAGE: nix-shell ./release.nix --argstr compiler ghc844 --arg haskell-overrides ./haskell-overrides_servant_13.nix -A servant-snap-ex-no-check.env
 let
   # NIXPKGS
   nixpkgs = import ./nix/nixpkgs.nix;
@@ -11,7 +12,8 @@ let
         packages = pkgs.haskell.packages // {
           "${compiler}" = pkgs.haskell.packages."${compiler}".override {
             overrides =
-              import ./haskell-overrides.nix nixpkgs compiler pkgs;
+              import haskell-overrides nixpkgs compiler pkgs;
+              # import ./haskell-overrides.nix nixpkgs compiler pkgs;
           };
         };
       };
