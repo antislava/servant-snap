@@ -515,7 +515,7 @@ ct_wildcard :: B.ByteString
 ct_wildcard = "*" <> "/" <> "*" -- Because CPP
 
 instance ( MimeRender ctype a, ReflectMethod method, MimeRender ctype a, -- ToStreamGenerator m (f a),
-           FramingRender framing ctype, ToStreamGenerator (f a) a
+           FramingRender framing ctype, ToStreamGenerator f a
          ) => HasServer (Stream method framing ctype (f a)) context m where
   type ServerT (Stream method framing ctype (f a)) context m = m (f a)
 
@@ -523,8 +523,8 @@ instance ( MimeRender ctype a, ReflectMethod method, MimeRender ctype a, -- ToSt
     where method = reflectMethod (Proxy :: Proxy method)
           -- status = toEnum . fromInteger $ natVal (Proxy :: Proxy status)
 
-instance ( MimeRender ctype a, ReflectMethod method, MimeRender ctype (f a), -- ToStreamGenerator m (f a),
-           FramingRender framing ctype, ToStreamGenerator (f a) a, GetHeaders (Headers h (f a))
+instance ( MimeRender ctype a, ReflectMethod method, MimeRender ctype (f a), ToStreamGenerator m (f a),
+           FramingRender framing ctype, ToStreamGenerator f a, GetHeaders (Headers h (f a))
          ) => HasServer (Stream method framing ctype (Headers h (f a))) context m where
   type ServerT (Stream method framing ctype (Headers h (f a))) context m = m (Headers h (f a))
 
@@ -540,7 +540,7 @@ instance ( MimeRender ctype a, ReflectMethod method, MimeRender ctype (f a), -- 
 
 streamRouter :: (MimeRender ctype a,
                  FramingRender framing ctype,
-                 ToStreamGenerator (f a) a,
+                 ToStreamGenerator f a,
                  MonadSnap m
                 ) =>
                 (b -> ([(HeaderName, B.ByteString)], f a))
